@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <!-- <link rel="manifest" href="manifest.json"> -->
+    <title>GPS Locator</title>
+</head>
+
+<body>
+    <h1>Posisi GPS Anda</h1>
+    <div id="gps-status">Menunggu akses lokasi...</div>
+    <div id="gps-coordinate"></div>
+    <script>
+        if ("geolocation" in navigator) {
+            document.getElementById("gps-status").innerText = "Mengakses lokasi...";
+
+            // Meminta akses lokasi
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    // Menampilkan posisi jika akses lokasi diberikan
+                    const latidude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    document.getElementById("gps-coordinates").innerText = 
+                    `Latitude: ${latidude}\nLongitude: ${longitude}`;
+                    document.getElementById("gps-status").innerText = "Lokasi Diperoleh!";
+                },
+                (error) => {
+                    // Menangani error jika ditolak
+                    document.getElementById("gps-status").innerText = 
+                    "Gagal mengakses lokasi: " + error.message;
+                }
+            );
+        } else {
+            // Pesan jika browser tidak mendukung Geolocation API
+            document.getElementById("gps-status").innerText = 
+            "Geolocation tidak didukung oleh browser ini.";
+        }
+    </script>
+</body>
+
+</html>
