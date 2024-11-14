@@ -1,44 +1,46 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <!-- <link rel="manifest" href="manifest.json"> -->
-    <title>GPS Locator</title>
+    <title>Posisi GPS Anda</title>
 </head>
-
 <body>
     <h1>Posisi GPS Anda</h1>
-    <div id="gps-status">Menunggu akses lokasi...</div>
-    <div id="gps-coordinate"></div>
-    <script>
-        if ("geolocation" in navigator) {
-            document.getElementById("gps-status").innerText = "Mengakses lokasi...";
+    <p id="status">Mengakses lokasi...</p>
+    <p id="location"></p>
 
-            // Meminta akses lokasi
-            navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    // Menampilkan posisi jika akses lokasi diberikan
-                    const latidude = position.coords.latitude;
-                    const longitude = position.coords.longitude;
-                    document.getElementById("gps-coordinates").innerText = 
-                    `Latitude: ${latidude}\nLongitude: ${longitude}`;
-                    document.getElementById("gps-status").innerText = "Lokasi Diperoleh!";
-                },
-                (error) => {
-                    // Menangani error jika ditolak
-                    document.getElementById("gps-status").innerText = 
-                    "Gagal mengakses lokasi: " + error.message;
-                }
-            );
+    <script>
+        function displayLocation(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById("status").textContent = "Lokasi Anda:";
+            document.getElementById("location").textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+        }
+
+        function displayError(error) {
+            const status = document.getElementById("status");
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    status.textContent = "Izin lokasi ditolak oleh pengguna.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    status.textContent = "Informasi lokasi tidak tersedia.";
+                    break;
+                case error.TIMEOUT:
+                    status.textContent = "Permintaan lokasi melebihi batas waktu.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    status.textContent = "Terjadi kesalahan yang tidak diketahui.";
+                    break;
+            }
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(displayLocation, displayError);
         } else {
-            // Pesan jika browser tidak mendukung Geolocation API
-            document.getElementById("gps-status").innerText = 
-            "Geolocation tidak didukung oleh browser ini.";
+            document.getElementById("status").textContent = "Geolocation tidak didukung oleh browser ini.";
         }
     </script>
 </body>
-
 </html>
