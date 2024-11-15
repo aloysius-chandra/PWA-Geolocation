@@ -1,4 +1,5 @@
 const CACHE_NAME = "gps-locator-cache-v1";
+
 const urlsToCache = [
     "/",
     "/index.html",
