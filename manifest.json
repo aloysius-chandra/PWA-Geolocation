@@ -23,7 +23,7 @@
             "src": "/screenshot1.png",
             "sizes": "640x1136",
             "type": "image/png",
-            "form_factor": "mobile"
+            "form_factor": "narrow"
         },
         {
             "src": "/screenshot2.png",
