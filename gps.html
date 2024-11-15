@@ -1,0 +1,58 @@
+<!-- gps.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPS Position</title>
+    <!-- Tambahkan Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="d-flex justify-content-center align-items-center vh-100 bg-light">
+    <div class="container text-center">
+        <h1 id="greeting" class="mb-4">Hello, </h1>
+        <p id="status" class="text-muted">Mengakses lokasi...</p>
+        <p id="location" class="text-info fw-bold"></p>
+    </div>
+
+    <script>
+        // Mengambil dan menampilkan nama pengguna
+        const name = localStorage.getItem("clientName");
+        document.getElementById("greeting").textContent = `Hello, ${name}`;
+
+        // Fungsi untuk menampilkan lokasi GPS
+        function displayLocation(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            document.getElementById("status").textContent = "Lokasi Anda:";
+            document.getElementById("location").textContent = `Latitude: ${latitude}, Longitude: ${longitude}`;
+        }
+
+        // Fungsi untuk menangani error
+        function displayError(error) {
+            const status = document.getElementById("status");
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    status.textContent = "Izin lokasi ditolak oleh pengguna.";
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    status.textContent = "Informasi lokasi tidak tersedia.";
+                    break;
+                case error.TIMEOUT:
+                    status.textContent = "Permintaan lokasi melebihi batas waktu.";
+                    break;
+                case error.UNKNOWN_ERROR:
+                    status.textContent = "Terjadi kesalahan yang tidak diketahui.";
+                    break;
+            }
+        }
+
+        // Meminta lokasi GPS
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(displayLocation, displayError);
+        } else {
+            document.getElementById("status").textContent = "Geolocation tidak didukung oleh browser ini.";
+        }
+    </script>
+</body>
+</html>
