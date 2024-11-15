@@ -1,4 +1,4 @@
-const CACHE_NAME = "gps-locator-cache-v1";
+const CACHE_NAME = "gps-locator-cache-v2";
 
 const urlsToCache = [
     "/",
