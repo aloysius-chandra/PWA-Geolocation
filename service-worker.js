@@ -1,7 +1,18 @@
+const CACHE_NAME = "gps-locator-cache-v1";
+
+const urlsToCache = [
+    "/",
+    "/index.html",
+    "/gps.html",
+    "/manifest.json",
+    "/style.css",
+    // "/script.js"
+];
+
 self.addEventListener('install', (event) => {
     event.waitUntil(
-        caches.open('pwa-cache').then((cache) => {
-            return cache.addAll(['/index.html', '/stylec.css']);
+        caches.open(CACHE_NAME).then((cache) => {
+            return cache.addAll(urlsToCache);
         })
     );
 });
