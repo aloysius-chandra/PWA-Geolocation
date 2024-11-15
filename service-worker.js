@@ -1,9 +1,11 @@
-const CACHE_NAME = "gps-locator-cache-v2";
+const CACHE_NAME = "gps-locator-cache-v3";
 const urlsToCache = [
     "/",
     "/index.html",
     "/gps.html",
     "/manifest.json",
+    "/icon-192x192.png",
+    "/icon-512x512.png",
     "/screenshot1.png",
     "/screenshot2.png"
 ];
