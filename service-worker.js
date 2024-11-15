@@ -1,5 +1,4 @@
 const CACHE_NAME = "gps-locator-cache-v2";
-
 const urlsToCache = [
     "/",
     "/index.html",
@@ -8,6 +7,7 @@ const urlsToCache = [
     "/style.css",
     // "/script.js"
 ];
+
 
 self.addEventListener('install', (event) => {
     event.waitUntil(
